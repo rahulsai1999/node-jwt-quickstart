@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const DocsModel = new mongoose.Schema({
   name: String,
-  url: String,
-  datemod: Date
+  datemod: Date,
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }]
 });
 
 const Docs = mongoose.model("Docs", DocsModel);

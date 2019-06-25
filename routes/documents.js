@@ -2,6 +2,8 @@ import { Router } from "express";
 import multer from "multer";
 import node_xj from "xls-to-json";
 import fs from "fs-extra";
+import Task from '../models/task';
+import Document from '../models/docs';
 
 //util
 const upload = multer({ dest: "temp/" });
@@ -24,7 +26,8 @@ const validator = result => {
     }
   });
   if (count == OGarr.length){
-      // store the document here 
+      // store the document here
+     
     return true;
   }
   else return false;

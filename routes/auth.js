@@ -2,7 +2,6 @@ import { Router } from "express";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
-import shortid from "shortid";
 
 const secret = '7x0jhxt"9(thpX6';
 const router = Router();
@@ -25,10 +24,10 @@ router.post("/login", (req, res, next) => {
 router.post("/register", (req, res) => {
   User.register(
     new User({
-      _id: shortid.generate().slice(0, 7),
       username: req.body.username,
       name: req.body.name,
-      phone: req.body.phone
+      phone: req.body.phone,
+      empid: req.body.empid
     }),
     req.body.password,
     (err, user) => {

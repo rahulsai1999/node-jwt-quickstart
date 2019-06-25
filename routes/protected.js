@@ -7,15 +7,13 @@ const router = Router();
 
 router.get("/current", isLoggedIn, (req, res, next) => {
   const x = extractid(req.headers);
-  User.findById(x.body.id)
-    .populate("tasks docs")
-    .exec((err, found) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(found);
-      }
-    });
+  User.findById(x.body.id).exec((err, found) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(found);
+    }
+  });
 });
 
 export default router;
