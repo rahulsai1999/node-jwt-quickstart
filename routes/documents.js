@@ -2,8 +2,9 @@ import { Router } from "express";
 import multer from "multer";
 import node_xj from "xls-to-json";
 import fs from "fs-extra";
-import Task from '../models/task';
-import Document from '../models/docs';
+import Task from "../models/task";
+import Document from "../models/docs";
+import shortid from "shortid";
 
 //util
 const upload = multer({ dest: "temp/" });
@@ -25,18 +26,46 @@ const validator = result => {
       }
     }
   });
-  if (count == OGarr.length){
-      // store the document here
-     
+
+  if (count == OGarr.length) {
+    // store the document here
+
+    Document.create(
+      {
+        name: shortid.generate().slice(0, 7),
+        datemod: new Date()
+      },
+      (err, doc) => {
+        OGarr.map(row => {
+          Task.create(
+            {
+              docname: doc.name,
+              firstname: row["first name"],
+              lastname: row["last name"],
+              phoneNumber: row["phone no."],
+              CIF: row.CIF,
+              address1: row["Address 1"],
+              address2: row["Address 2"],
+              email: row["Email id"],
+              salesID: row.salespersonID
+            },
+            (err, task) => {
+              if (err) console.log(err);
+            }
+          );
+        });
+      }
+    );
+
     return true;
-  }
-  else return false;
+  } else return false;
 };
 
 //routes
 
 router.post("/validate", upload.single("avatar"), (req, res) => {
   const file = req.file;
+  const name = req.body.name;
   node_xj(
     {
       input: file.path,
@@ -46,16 +75,15 @@ router.post("/validate", upload.single("avatar"), (req, res) => {
     (err, result) => {
       if (err) console.log(err);
       else {
+        fs.remove(file.path);
+        fs.remove("output.json");
         //validate and upload
         const x = validator(result);
-        console.log(x);
         if (x) return res.json("Valid");
         else return res.json("Invalid");
       }
     }
   );
-  fs.remove(file.path);
-  fs.remove("output.json");
 });
 
 export default router;
