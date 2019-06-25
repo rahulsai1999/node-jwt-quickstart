@@ -18,6 +18,7 @@ import Docs from "../models/docs";
 //routes
 import Auth from '../routes/auth';
 import Protected from '../routes/protected';
+import Document from '../routes/documents';
 
 //utilities
 const app = express();
@@ -71,6 +72,7 @@ app.get("/", (req, res) => {
 
 app.use("/",Auth);
 app.use("/",Protected);
+app.use("/",Document);
 
 
 app.listen(5000, () => {
