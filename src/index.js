@@ -16,10 +16,11 @@ import Task from "../models/task";
 import Docs from "../models/docs";
 
 //routes
-import Auth from '../routes/auth';
-import Protected from '../routes/protected';
-import Document from '../routes/documents';
-import Admin from '../routes/admin';
+import Auth from "../routes/auth";
+import Protected from "../routes/protected";
+import Document from "../routes/documents";
+import Admin from "../routes/admin";
+import Staff from "../routes/staff";
 
 //utilities
 const app = express();
@@ -71,11 +72,11 @@ app.get("/", (req, res) => {
   res.send("Hello from the server side");
 });
 
-app.use("/",Auth);
-app.use("/",Protected);
-app.use("/",Document);
-app.use("/admin",Admin);
-
+app.use("/", Auth);
+app.use("/", Protected);
+app.use("/", Document);
+app.use("/admin", Admin);
+app.use("/staff",Staff);
 
 app.listen(5000, () => {
   console.log("Running on", 5000);
