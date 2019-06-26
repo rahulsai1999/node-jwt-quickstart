@@ -5,7 +5,6 @@ import fs from "fs-extra";
 import Task from "../models/task";
 import Document from "../models/docs";
 import shortid from "shortid";
-import isLoggedIn from "../src/isLoggedIn";
 
 //util
 const upload = multer({ dest: "temp/" });
@@ -65,9 +64,8 @@ const validator = result => {
 
 //routes
 
-router.post("/validate", isLoggedIn, upload.single("avatar"), (req, res) => {
+router.post("/validate", upload.single("avatar"), (req, res) => {
   const file = req.file;
-  const name = req.body.name;
   node_xj(
     {
       input: file.path,
