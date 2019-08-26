@@ -12,15 +12,10 @@ import mongoose from "mongoose";
 
 //models
 import User from "../models/user";
-import Task from "../models/task";
-import Docs from "../models/docs";
 
 //routes
 import Auth from "../routes/auth";
 import Protected from "../routes/protected";
-import Document from "../routes/documents";
-import Admin from "../routes/admin";
-import Staff from "../routes/staff";
 
 //utilities
 const app = express();
@@ -31,7 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.connect(
-  "mongodb://adarsh:adarsh123@ds343217.mlab.com:43217/backend-service",
+  "mongodb://noneuser2183:qwerty1@ds213178.mlab.com:13178/stockr-backend",
   { useNewUrlParser: true },
   err => {
     err ? console.log(err) : console.log("Connected to Database");
@@ -74,9 +69,6 @@ app.get("/", (req, res) => {
 
 app.use("/", Auth);
 app.use("/", Protected);
-app.use("/", Document);
-app.use("/admin", Admin);
-app.use("/staff",Staff);
 
 app.listen(5000, () => {
   console.log("Running on", 5000);

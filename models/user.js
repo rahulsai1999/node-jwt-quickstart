@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
 const UserModel = new mongoose.Schema({
+  email: String,
+  name: String,
   username: String,
   password: String,
-  name: String,
-  phoneNumber: Number,
-  isAdmin: Boolean,
-  empid: String
+  DOB: String,
+  stocks: Array
 });
 
 UserModel.plugin(passportLocalMongoose);
